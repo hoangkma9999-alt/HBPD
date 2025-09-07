@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Happy Birthday Diễm Quỳnh</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -12,7 +14,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Arial Black', sans-serif;
+      font-family: 'Pacifico', cursive;
       perspective: 1000px;
     }
 
@@ -22,7 +24,21 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
+      z-index: -2;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #ff0;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(720deg); }
     }
 
     .scene {
@@ -52,19 +68,19 @@
   <div class="scene" id="scene1">3</div>
   <div class="scene" id="scene2">2</div>
   <div class="scene" id="scene3">1</div>
-  <div class="scene" id="scene4">Happy</div>
-  <div class="scene" id="scene5">Birth Day</div>
-  <div class="scene" id="scene6">Diễm Quỳnh</div>
-  <div class="scene" id="scene7">18-9-2009</div>
+  <div class="scene" id="scene4">🎉 Happy 🎉</div>
+  <div class="scene" id="scene5">🎂 Birth Day 🎂</div>
+  <div class="scene" id="scene6">💖 Diễm Quỳnh 💖</div>
+  <div class="scene" id="scene7">📅 18-9-2001 📅</div>
   <div class="scene message" id="scene8">
-    Chúc Diễm Quỳnh một ngày sinh nhật thật vui vẻ, tràn ngập tiếng cười,
-    hạnh phúc bên gia đình và bạn bè. Chúc em luôn xinh đẹp, học giỏi,
-    gặp nhiều may mắn và thành công trong cuộc sống ❤️
+    🎁 Chúc em một ngày sinh nhật thật vui vẻ, tràn ngập tiếng cười,<br>
+                    hạnh phúc bên gia đình và bạn bè. 🎂<br>
+    Chúc em luôn xinh đẹp, thành công, gặp nhiều may mắn và thành công ❤️
   </div>
 
-  <!-- Nhạc Happy Birthday online -->
+  <!-- Nhạc -->
   <audio id="music" autoplay loop>
-    <source src="https://www2.cs.uic.edu/~i101/SoundFiles/HappyBirthday.mid" type="audio/mpeg">
+    <source src="happy.mp3" type="audio/mpeg">
   </audio>
 
   <!-- GSAP -->
@@ -72,7 +88,6 @@
   <script>
     // Hiệu ứng text theo thứ tự
     const scenes = document.querySelectorAll('.scene');
-
     let timeline = gsap.timeline({ repeat: 0 });
 
     scenes.forEach((scene, i) => {
@@ -102,15 +117,15 @@
       ease: "elastic.out(1, 0.5)"
     });
 
-    // Background chữ bay
+    // Background chữ + icon bay
     const canvas = document.getElementById("bg");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
     const messages = [
-      "Happy Birthday 💖", "You are amazing 🌟", "Love you 💕",
-      "My sunshine 🌞", "Forever 💞", "Best wishes 🎉"
+      "🎉 Happy Birthday 💖", "🎁 You are amazing 🌟", "🎂 Love you 💕",
+      "🎈 My sunshine 🌞", "💞 Forever 💞", "🎊 Best wishes 🎉"
     ];
 
     class FloatingText {
@@ -120,10 +135,10 @@
         this.y = canvas.height + 50;
         this.speed = 1 + Math.random() * 2;
         this.size = 20 + Math.random() * 25;
-        this.color = "rgba(255,182,193,0.8)";
+        this.color = "rgba(255,182,193,0.9)";
       }
       draw() {
-        ctx.font = this.size + "px cursive";
+        ctx.font = this.size + "px Pacifico, cursive";
         ctx.fillStyle = this.color;
         ctx.fillText(this.text, this.x, this.y);
       }
@@ -139,7 +154,7 @@
     }
 
     const texts = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 25; i++) {
       texts.push(new FloatingText());
     }
 
@@ -154,6 +169,24 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
+
+    // 🎊 Confetti hiệu ứng rơi
+    function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      document.body.appendChild(confetti);
+
+      confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      confetti.style.animationDuration = 3 + Math.random() * 2 + "s";
+      confetti.style.opacity = Math.random();
+
+      setTimeout(() => {
+        confetti.remove();
+      }, 5000);
+    }
+
+    setInterval(createConfetti, 150);
   </script>
 </body>
 </html>
