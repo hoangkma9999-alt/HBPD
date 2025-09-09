@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy Birthday Diễm Quỳnh</title>
-  <!-- Google Font -->
+  <meta charset="UTF-8" />
+  <title>Happy Birthday — Secure</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <style>
+    :root{
+      --accent1: #ff4da6;
+      --accent2: #6af7e0;
+      --glass: rgba(255,255,255,0.06);
+      --glass-strong: rgba(255,255,255,0.09);
+    }
+    *{box-sizing:border-box}
     body {
       margin: 0;
       height: 100vh;
@@ -16,8 +23,145 @@
       align-items: center;
       font-family: 'Pacifico', cursive;
       perspective: 1000px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
+    /* ========== LOCK SCREEN OVERLAY ========== */
+    .lock-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, rgba(0,0,0,0.70), rgba(0,0,0,0.85));
+      z-index: 9999;
+      backdrop-filter: blur(6px) saturate(120%);
+      -webkit-backdrop-filter: blur(6px) saturate(120%);
+      padding: 20px;
+    }
+
+    .lock-card {
+      width: min(520px, 96%);
+      max-width: 520px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border-radius: 18px;
+      padding: 26px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+      color: white;
+      text-align: center;
+      transform: translateY(0);
+      transition: transform .45s cubic-bezier(.2,.9,.3,1), opacity .3s;
+    }
+
+    .lock-header {
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:center;
+      margin-bottom: 10px;
+    }
+    .lock-icon {
+      width:66px;
+      height:66px;
+      border-radius: 50%;
+      background: linear-gradient(135deg,var(--accent1),var(--accent2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 34px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 18px rgba(0,0,0,0.15) inset;
+    }
+    .lock-title {
+      text-align:left;
+    }
+    .lock-title h3{margin:0;font-size:1.2rem;letter-spacing:0.6px}
+    .lock-title p{margin:2px 0 0 0;font-size:0.85rem;opacity:0.9}
+
+    .pin-display {
+      margin: 18px auto 10px;
+      width: min(360px, 88%);
+      display:flex;
+      gap:14px;
+      justify-content:center;
+    }
+      .dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255, 182, 193, 0.25);
+      border: 1px solid rgba(255, 105, 180, 0.5);
+      box-shadow: 0 2px 6px rgba(255, 182, 193, 0.5) inset;
+      transition: background .18s, transform .12s;
+      }
+      .dot.filled {
+      background: #ff69b4; /* hồng đậm */
+      transform: scale(1.1);
+      box-shadow: 0 0 10px #ffb6c1, 0 0 16px #ff69b4;
+      }
+
+
+    .kbd {
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 12px;
+      padding: 8px;
+    }
+    .btn {
+    background: linear-gradient(180deg, #ffd6e7, #ffb6c1);
+    border-radius: 14px;
+    padding: 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: #fff;
+    font-weight: bold;
+    border: 1px solid #ff69b4;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .2s;
+    user-select: none;
+    box-shadow: 0 4px 12px rgba(255, 105, 180, 0.4);
+    }
+    .btn:hover {
+  box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+}
+.btn:active {
+  transform: translateY(3px) scale(.97);
+  box-shadow: 0 3px 8px rgba(255, 105, 180, 0.5);
+}
+.btn.action {
+  grid-column: span 3;
+  background: linear-gradient(90deg, #ff69b4, #ff1493);
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #fff;
+  text-shadow: 0 0 6px #fff0f5;
+  box-shadow: 0 6px 20px rgba(255, 20, 147, 0.6);
+}
+
+/* Nút xóa (C, backspace) */
+.btn.gray {
+  background: linear-gradient(180deg, #ffe6f0, #ffcce0);
+  color: #ff1493;
+  font-weight: bold;
+  border: 1px solid #ff69b4;
+}
+
+
+    /* shake animation for wrong PIN */
+    @keyframes shakeX {
+      0%{ transform: translateX(0) }
+      20%{ transform: translateX(-8px) }
+      40%{ transform: translateX(8px) }
+      60%{ transform: translateX(-6px) }
+      80%{ transform: translateX(6px) }
+      100%{ transform: translateX(0) }
+    }
+    .shake { animation: shakeX .6s cubic-bezier(.36,.07,.19,.97); }
+
+    /* ========== REST OF ORIGINAL STYLES ========== */
     canvas {
       position: absolute;
       top: 0;
@@ -35,7 +179,6 @@
       opacity: 0.8;
       animation: fall linear infinite;
     }
-
     @keyframes fall {
       0% { transform: translateY(-10px) rotate(0deg); }
       100% { transform: translateY(100vh) rotate(720deg); }
@@ -43,135 +186,335 @@
 
     .scene {
       position: absolute;
-      font-size: 5em;
+      font-size: 4em;
       color: #fff;
       text-align: center;
-      transform-style: preserve-3d;
-      opacity: 0;
       text-shadow: 0 0 20px #ff00de, 0 0 40px #00ffe5;
+      opacity: 0;
     }
 
-    .message {
-      font-size: 2em;
-      width: 80%;
-      line-height: 1.6;
-      color: #f5f5f5;
-      text-align: center;
-      text-shadow: 0 0 10px #ff0;
+    /* Animations for scenes (as provided earlier) */
+    @keyframes bounceIn {
+      0%   { opacity: 0; transform: scale(0.3) translateY(-200px); }
+      50%  { opacity: 1; transform: scale(1.1) translateY(20px); }
+      70%  { transform: scale(0.9) translateY(-10px); }
+      100% { transform: scale(1) translateY(0); }
+    }
+    .bounceIn { animation: bounceIn 1s ease forwards; }
+
+    @keyframes fadeZoom {
+      0%   { opacity: 0; transform: scale(0.5) rotateX(30deg); }
+      100% { opacity: 1; transform: scale(1) rotateX(0deg); }
+    }
+    .fadeZoom { animation: fadeZoom 1.2s ease forwards; }
+
+    @keyframes slideIn {
+      0%   { opacity: 0; transform: translateX(-100vw); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    .slideIn { animation: slideIn 1s ease forwards; }
+
+    @keyframes flipIn {
+      0%   { opacity: 0; transform: rotateX(90deg) scale(0.8); }
+      100% { opacity: 1; transform: rotateX(0) scale(1); }
+    }
+    .flipIn { animation: flipIn 1.2s ease forwards; }
+
+    /* music toggle button */
+    #toggleMusic {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      color: white;
+      z-index: 10;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    }
+    #rotateNotice {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  color: pink;
+  font-family: 'Pacifico', cursive;
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 10000;
+  flex-direction: column;
+}
+
+#rotateNotice img {
+  width: 80px;
+  margin-top: 12px;
+  animation: rotatePhone 2s infinite;
+}
+
+@keyframes rotatePhone {
+  0%   { transform: rotate(0deg); }
+  50%  { transform: rotate(90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+
+    /* small responsive tweaks */
+    @media (max-width:480px){
+      .lock-card{ padding:18px }
+      .lock-icon{ width:56px;height:56px;font-size:28px }
+      .btn{ padding:12px 0;font-size:1.05rem }
+      .dot{ width:14px;height:14px }
     }
   </style>
 </head>
 <body>
   <canvas id="bg"></canvas>
+  <div id="rotateNotice" style="display:none">
+  📱 Vui lòng xoay ngang màn hình để tiếp tục 🎀
+  <img src="https://cdn-icons-png.flaticon.com/512/2088/2088617.png" alt="rotate phone">
+</div>
+  <!-- Overlay lock screen -->
+  <div id="lockOverlay" class="lock-overlay" aria-hidden="false">
+    <div id="lockCard" class="lock-card">
+      <div class="lock-header">
+        <div class="lock-icon">🔒</div>
+        <div class="lock-title">
+          <h3>Nhập mật khẩu để vào</h3>
+          <p>Nhập mã PIN (4 chữ số) — nhập sai sẽ thử lại</p>
+        </div>
+      </div>
 
-  <!-- Các cảnh -->
-  <div class="scene" id="scene1">3</div>
-  <div class="scene" id="scene2">2</div>
-  <div class="scene" id="scene3">1</div>
-  <div class="scene" id="scene4">🎉 Happy 🎉</div>
-  <div class="scene" id="scene5">🎂 Birth Day 🎂</div>
-  <div class="scene" id="scene6">💖 Diễm Quỳnh 💖</div>
-  <div class="scene" id="scene7">📅 18-9-2001 📅</div>
-  <div class="scene message" id="scene8">
-    🎁 Chúc em một ngày sinh nhật thật vui vẻ, tràn ngập tiếng cười,<br>
-                    hạnh phúc bên gia đình và bạn bè. 🎂<br>
-    Chúc em luôn xinh đẹp, thành công, gặp nhiều may mắn và thành công ❤️
+      <div class="pin-display" id="pinDisplay">
+        <div class="dot" data-pos="0"></div>
+        <div class="dot" data-pos="1"></div>
+        <div class="dot" data-pos="2"></div>
+        <div class="dot" data-pos="3"></div>
+      </div>
+
+      <div class="kbd" id="kbd">
+        <!-- Numbers (JS will fill) -->
+      </div>
+    </div>
   </div>
 
+  <!-- Khung hiển thị chữ (giữ nguyên) -->
+  <div id="message" class="scene"></div>
+
   <!-- Nhạc -->
-  <audio id="music" autoplay loop>
+  <audio id="music" loop>
     <source src="happy.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script>
-    // Hiệu ứng text theo thứ tự
-    const scenes = document.querySelectorAll('.scene');
-    let timeline = gsap.timeline({ repeat: 0 });
+  <!-- Nút bật/tắt nhạc -->
+  <button id="toggleMusic">🔇</button>
 
-    scenes.forEach((scene, i) => {
-      if (i < scenes.length - 1) {
-        timeline.to(scene, {
-          duration: 1,
-          opacity: 1,
-          scale: 1.2,
-          rotationY: 360,
-          ease: "back.out(1.7)"
-        });
-        timeline.to(scene, {
-          duration: 0.8,
-          opacity: 0,
-          scale: 0.5,
-          delay: 0.8
-        });
+  <!-- GSAP (giữ nếu cần) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <script>
+    /* ========== LOCK / PIN LOGIC ========== */
+    const CORRECT_PIN = "2001"; // <-- chỉnh mã PIN ở đây nếu cần
+    let inputPin = "";
+
+    const lockOverlay = document.getElementById('lockOverlay');
+    const pinDots = document.querySelectorAll('.dot');
+    const kbd = document.getElementById('kbd');
+    const lockCard = document.getElementById('lockCard');
+
+    // build keypad (1-9, blank, 0, back)
+    const keys = [
+      '1','2','3',
+      '4','5','6',
+      '7','8','9',
+      'C','0','←'
+    ];
+    keys.forEach(k => {
+      const b = document.createElement('button');
+      b.className = 'btn' + (k==='C' || k==='←' ? ' gray' : '');
+      b.innerHTML = (k === '←') ? '⌫' : (k==='C' ? 'C' : k);
+      b.setAttribute('data-key', k);
+      kbd.appendChild(b);
+    });
+
+    function updateDots(){
+      pinDots.forEach((d,i)=>{
+        if(i < inputPin.length) d.classList.add('filled'); else d.classList.remove('filled');
+      });
+    }
+
+    function wrongPinFeedback(){
+      lockCard.classList.remove('shake');
+      // reflow to restart animation
+      void lockCard.offsetWidth;
+      lockCard.classList.add('shake');
+      setTimeout(()=> {
+        lockCard.classList.remove('shake');
+      }, 700);
+    }
+
+    function unlock(){
+      // fade out overlay nicely
+      lockOverlay.style.transition = 'opacity .45s ease, transform .45s ease';
+      lockOverlay.style.opacity = 0;
+      lockOverlay.style.transform = 'scale(.99) translateY(10px)';
+      setTimeout(()=> {
+        lockOverlay.style.display = 'none';
+        lockOverlay.setAttribute('aria-hidden','true');
+      }, 480);
+
+      // Start the rest (play music if allowed)
+      tryPlayMusicOnUnlock();
+    }
+
+    // handle keypad clicks
+    kbd.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      const k = btn.getAttribute('data-key');
+
+      if(k === 'C'){ // clear
+        inputPin = '';
+        updateDots();
+        return;
+      }
+      if(k === '←'){ // backspace
+        inputPin = inputPin.slice(0,-1);
+        updateDots();
+        return;
+      }
+      if(inputPin.length >= 4) return; // only 4-digit PIN
+      inputPin += k;
+      updateDots();
+
+      if(inputPin.length === 4){
+        // slight delay for UX
+        setTimeout(()=>{
+          if(inputPin === CORRECT_PIN){
+            unlock();
+          } else {
+            wrongPinFeedback();
+            inputPin = '';
+            updateDots();
+          }
+        }, 300);
       }
     });
 
-    // Cảnh cuối giữ lại
-    timeline.to("#scene8", {
-      opacity: 1,
-      scale: 1.1,
-      duration: 1.5,
-      rotationX: 360,
-      ease: "elastic.out(1, 0.5)"
+    // keyboard support (optional)
+    document.addEventListener('keydown', (e)=>{
+      if(lockOverlay.style.display === 'none') return;
+      if(e.key >= '0' && e.key <= '9'){
+        if(inputPin.length < 4){
+          inputPin += e.key;
+          updateDots();
+        }
+        if(inputPin.length === 4){
+          setTimeout(()=>{
+            if(inputPin === CORRECT_PIN) unlock();
+            else { wrongPinFeedback(); inputPin=''; updateDots(); }
+          }, 220);
+        }
+      } else if(e.key === 'Backspace'){
+        inputPin = inputPin.slice(0,-1);
+        updateDots();
+      } else if(e.key.toLowerCase() === 'c'){
+        inputPin = '';
+        updateDots();
+      }
     });
 
-    // Background chữ + icon bay
+
+    /* ========== MAIN SCENE ANIMATION (unchanged logic) ========== */
+    const messages = [
+      { text: "3", effect: "bounceIn" },
+      { text: "2", effect: "bounceIn" },
+      { text: "1", effect: "bounceIn" },
+      { text: "🎉 Happy 🎉", effect: "fadeZoom" },
+      { text: "🎂 Birthday 🎂", effect: "fadeZoom" },
+      { text: "💖 Diễm Quỳnh 💖", effect: "slideIn" },
+      { text: "📅 18-9-2001 📅", effect: "slideIn" },
+      { text: "🎁 Chúc em một ngày sinh nhật thật vui vẻ,<br>hạnh phúc bên gia đình và bạn bè ❤️", effect: "flipIn" }
+    ];
+    let msgIndex = 0;
+    const messageEl = document.getElementById("message");
+
+    function showNextMessage(){
+      if(msgIndex >= messages.length) return;
+      const { text, effect } = messages[msgIndex];
+      // reset classes
+      messageEl.className = 'scene';
+      // small delay to allow reset
+      setTimeout(()=>{
+        messageEl.innerHTML = text;
+        messageEl.classList.add(effect);
+        msgIndex++;
+        if(msgIndex < messages.length) setTimeout(showNextMessage, 2500);
+      }, 160);
+    }
+
+    // We will only start showing messages after unlock
+    function startSequence(){
+      msgIndex = 0;
+      showNextMessage();
+      // start other background animations already running below (canvas/confetti)
+    }
+
+    /* ========== BACKGROUND FLYING TEXT (as before) ========== */
     const canvas = document.getElementById("bg");
     const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    function resizeCanvas(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
-    const messages = [
+    const flyMessages = [
       "🎉 Happy Birthday 💖", "🎁 You are amazing 🌟", "🎂 Love you 💕",
       "🎈 My sunshine 🌞", "💞 Forever 💞", "🎊 Best wishes 🎉"
     ];
-
     class FloatingText {
       constructor() {
-        this.text = messages[Math.floor(Math.random() * messages.length)];
-        this.x = Math.random() * canvas.width;
-        this.y = canvas.height + 50;
-        this.speed = 1 + Math.random() * 2;
-        this.size = 20 + Math.random() * 25;
-        this.color = "rgba(255,182,193,0.9)";
+        this.reset();
       }
-      draw() {
-        ctx.font = this.size + "px Pacifico, cursive";
+      reset(){
+        this.text = flyMessages[Math.floor(Math.random() * flyMessages.length)];
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + 50 + Math.random()*200;
+        this.speed = 0.6 + Math.random() * 2;
+        this.size = 18 + Math.random() * 28;
+        this.color = "rgba(255,182,193,0.9)";
+        this.alpha = 0.9;
+      }
+      draw(){
+        ctx.font = `${this.size}px Pacifico, cursive`;
         ctx.fillStyle = this.color;
         ctx.fillText(this.text, this.x, this.y);
       }
-      update() {
+      update(){
         this.y -= this.speed;
-        if (this.y < -50) {
-          this.y = canvas.height + 50;
-          this.x = Math.random() * canvas.width;
-          this.text = messages[Math.floor(Math.random() * messages.length)];
-        }
+        if(this.y < -80) this.reset();
         this.draw();
       }
     }
 
     const texts = [];
-    for (let i = 0; i < 25; i++) {
-      texts.push(new FloatingText());
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      texts.forEach(t => t.update());
+    for(let i=0;i<26;i++) texts.push(new FloatingText());
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      texts.forEach(t=>t.update());
       requestAnimationFrame(animate);
     }
     animate();
 
-    window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-
-    // 🎊 Confetti hiệu ứng rơi
-    function createConfetti() {
+    /* ========== CONFETTI ========= */
+    function createConfetti(){
       const confetti = document.createElement("div");
       confetti.classList.add("confetti");
       document.body.appendChild(confetti);
@@ -181,12 +524,77 @@
       confetti.style.animationDuration = 3 + Math.random() * 2 + "s";
       confetti.style.opacity = Math.random();
 
-      setTimeout(() => {
-        confetti.remove();
-      }, 5000);
+      setTimeout(()=> confetti.remove(), 5200);
+    }
+    setInterval(createConfetti, 160);
+
+    /* ========== MUSIC CONTROL & AUTOPLAY HANDLING ========= */
+    const music = document.getElementById('music');
+    const toggleBtn = document.getElementById('toggleMusic');
+
+    // Try to play when unlock or first interaction
+    function tryPlayMusicOnUnlock(){
+      music.play().then(()=>{
+        toggleBtn.textContent = "🔊";
+      }).catch(()=>{
+        // if blocked, keep toggle icon muted; user can tap
+        toggleBtn.textContent = "🔇";
+      });
     }
 
-    setInterval(createConfetti, 150);
+    toggleBtn.addEventListener('click', ()=>{
+      if(music.paused){
+        music.play().then(()=> toggleBtn.textContent = "🔊").catch(()=>{ toggleBtn.textContent = "🔇"; });
+      } else {
+        music.pause();
+        toggleBtn.textContent = "🔇";
+      }
+    });
+
+    // If the user clicks anywhere (after unlocking), try to play once
+    document.body.addEventListener('click', ()=>{
+      if(lockOverlay.style.display === 'none') {
+        if(music.paused) music.play().catch(()=>{});
+      }
+    }, { once: true });
+
+    /* ========== WHEN UNLOCK HAPPENS START SEQUENCE ========== */
+    // Observe overlay hidden to trigger startSequence
+    const obs = new MutationObserver((mut)=>{
+      // when overlay becomes display:none, start
+      if(window.getComputedStyle(lockOverlay).display === 'none'){
+        startSequence();
+      }
+    });
+    obs.observe(lockOverlay, { attributes: true, attributeFilter: ['style'] });
+
+    // Safety: if overlay already hidden (rare), start
+    if(window.getComputedStyle(lockOverlay).display === 'none'){
+      startSequence();
+    }
+
+    /* Accessibility: focus on keypad first */
+    // (optional) set focus to first button
+    const firstBtn = kbd.querySelector('button');
+    if(firstBtn) firstBtn.tabIndex = 0;
+    function checkOrientation() {
+  if (window.innerHeight > window.innerWidth) {
+    // portrait
+    document.getElementById("rotateNotice").style.display = "flex";
+    document.body.style.overflow = "hidden";
+  } else {
+    // landscape
+    document.getElementById("rotateNotice").style.display = "none";
+    document.body.style.overflow = "auto";
+  }
+}
+
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
+
+// kiểm tra ngay lúc mở web
+checkOrientation();
+
   </script>
 </body>
-</html>
+</html>Q
