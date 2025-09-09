@@ -26,6 +26,10 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
+    .smallText {
+  font-size: 0.5em;   /* nhỏ hơn bình thường */
+  line-height: 1.4;   /* giãn dòng để dễ đọc */
+}
 
     /* ========== LOCK SCREEN OVERLAY ========== */
     .lock-overlay {
@@ -439,7 +443,10 @@
       { text: "🎂 Birthday 🎂", effect: "fadeZoom" },
       { text: "💖 Diễm Quỳnh 💖", effect: "slideIn" },
       { text: "📅 18-9-2001 📅", effect: "slideIn" },
-      { text: "🎁 Chúc em một ngày sinh nhật thật vui vẻ,<br>hạnh phúc bên gia đình và bạn bè ❤️", effect: "flipIn" }
+      { 
+  text: '<span class="smallText">🎁 Chúc em một ngày sinh nhật thật vui vẻ,<br>hạnh phúc bên gia đình và bạn bè ❤️</span>', 
+  effect: "flipIn" 
+}
     ];
     let msgIndex = 0;
     const messageEl = document.getElementById("message");
