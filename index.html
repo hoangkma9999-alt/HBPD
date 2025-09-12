@@ -27,9 +27,11 @@
       -moz-osx-font-smoothing:grayscale;
     }
     .smallText {
-  font-size: 0.5em;   /* nhỏ hơn bình thường */
-  line-height: 1.4;   /* giãn dòng để dễ đọc */
-}
+      font-size: 0.5em;
+      line-height: 1.4;
+    }
+
+    
 
     /* ========== LOCK SCREEN OVERLAY ========== */
     .lock-overlay {
@@ -89,7 +91,7 @@
       gap:14px;
       justify-content:center;
     }
-      .dot {
+    .dot {
       width: 18px;
       height: 18px;
       border-radius: 50%;
@@ -97,13 +99,12 @@
       border: 1px solid rgba(255, 105, 180, 0.5);
       box-shadow: 0 2px 6px rgba(255, 182, 193, 0.5) inset;
       transition: background .18s, transform .12s;
-      }
-      .dot.filled {
-      background: #ff69b4; /* hồng đậm */
+    }
+    .dot.filled {
+      background: #ff69b4;
       transform: scale(1.1);
       box-shadow: 0 0 10px #ffb6c1, 0 0 16px #ff69b4;
-      }
-
+    }
 
     .kbd {
       margin-top: 14px;
@@ -113,48 +114,39 @@
       padding: 8px;
     }
     .btn {
-    background: linear-gradient(180deg, #ffd6e7, #ffb6c1);
-    border-radius: 14px;
-    padding: 16px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-    color: #fff;
-    font-weight: bold;
-    border: 1px solid #ff69b4;
-    cursor: pointer;
-    transition: transform .12s ease, box-shadow .2s;
-    user-select: none;
-    box-shadow: 0 4px 12px rgba(255, 105, 180, 0.4);
+      background: linear-gradient(180deg, #ffd6e7, #ffb6c1);
+      border-radius: 14px;
+      padding: 16px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: #fff;
+      font-weight: bold;
+      border: 1px solid #ff69b4;
+      cursor: pointer;
+      transition: transform .12s ease, box-shadow .2s;
+      user-select: none;
+      box-shadow: 0 4px 12px rgba(255, 105, 180, 0.4);
     }
-    .btn:hover {
-  box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
-}
-.btn:active {
-  transform: translateY(3px) scale(.97);
-  box-shadow: 0 3px 8px rgba(255, 105, 180, 0.5);
-}
-.btn.action {
-  grid-column: span 3;
-  background: linear-gradient(90deg, #ff69b4, #ff1493);
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  color: #fff;
-  text-shadow: 0 0 6px #fff0f5;
-  box-shadow: 0 6px 20px rgba(255, 20, 147, 0.6);
-}
+    .btn:hover { box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6); }
+    .btn:active { transform: translateY(3px) scale(.97); box-shadow: 0 3px 8px rgba(255, 105, 180, 0.5); }
+    .btn.action {
+      grid-column: span 3;
+      background: linear-gradient(90deg, #ff69b4, #ff1493);
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      color: #fff;
+      text-shadow: 0 0 6px #fff0f5;
+      box-shadow: 0 6px 20px rgba(255, 20, 147, 0.6);
+    }
+    .btn.gray {
+      background: linear-gradient(180deg, #ffe6f0, #ffcce0);
+      color: #ff1493;
+      font-weight: bold;
+      border: 1px solid #ff69b4;
+    }
 
-/* Nút xóa (C, backspace) */
-.btn.gray {
-  background: linear-gradient(180deg, #ffe6f0, #ffcce0);
-  color: #ff1493;
-  font-weight: bold;
-  border: 1px solid #ff69b4;
-}
-
-
-    /* shake animation for wrong PIN */
     @keyframes shakeX {
       0%{ transform: translateX(0) }
       20%{ transform: translateX(-8px) }
@@ -165,7 +157,6 @@
     }
     .shake { animation: shakeX .6s cubic-bezier(.36,.07,.19,.97); }
 
-    /* ========== REST OF ORIGINAL STYLES ========== */
     canvas {
       position: absolute;
       top: 0;
@@ -197,7 +188,6 @@
       opacity: 0;
     }
 
-    /* Animations for scenes (as provided earlier) */
     @keyframes bounceIn {
       0%   { opacity: 0; transform: scale(0.3) translateY(-200px); }
       50%  { opacity: 1; transform: scale(1.1) translateY(20px); }
@@ -239,50 +229,69 @@
       z-index: 10;
       box-shadow: 0 6px 18px rgba(0,0,0,0.5);
     }
+
     #rotateNotice {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  color: pink;
-  font-family: 'Pacifico', cursive;
-  font-size: 1.6rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  z-index: 10000;
-  flex-direction: column;
-}
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      color: pink;
+      font-family: 'Pacifico', cursive;
+      font-size: 1.6rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      z-index: 10000;
+      flex-direction: column;
+    }
 
-#rotateNotice img {
-  width: 80px;
-  margin-top: 12px;
-  animation: rotatePhone 2s infinite;
-}
+    #rotateNotice img {
+      width: 80px;
+      margin-top: 12px;
+      animation: rotatePhone 2s infinite;
+    }
 
-@keyframes rotatePhone {
-  0%   { transform: rotate(0deg); }
-  50%  { transform: rotate(90deg); }
-  100% { transform: rotate(0deg); }
-}
+    @keyframes rotatePhone {
+      0%   { transform: rotate(0deg); }
+      50%  { transform: rotate(90deg); }
+      100% { transform: rotate(0deg); }
+    }
 
+    /* gift form styling (fixed centered, hidden until end) */
+    #giftForm {
+      display:none;
+      position: fixed;
+      z-index: 9998;
+      left: 50%;
+      top: 60%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 12px;
+      color: white;
+      text-align: center;
+      min-width: 300px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    }
+    #giftForm input { width: 90%; box-sizing: border-box; }
 
-    /* small responsive tweaks */
     @media (max-width:480px){
       .lock-card{ padding:18px }
       .lock-icon{ width:56px;height:56px;font-size:28px }
       .btn{ padding:12px 0;font-size:1.05rem }
       .dot{ width:14px;height:14px }
+      #giftForm { width: 92%; left:50%; top: 65%; transform: translate(-50%,-50%); }
     }
   </style>
 </head>
 <body>
   <canvas id="bg"></canvas>
   <div id="rotateNotice" style="display:none">
-  📱 Vui lòng xoay ngang màn hình để tiếp tục 🎀
-  <img src="https://cdn-icons-png.flaticon.com/512/2088/2088617.png" alt="rotate phone">
-</div>
+    📱 Vui lòng xoay ngang màn hình để tiếp tục 🎀
+    <img src="https://cdn-icons-png.flaticon.com/512/2088/2088617.png" alt="rotate phone">
+  </div>
+
   <!-- Overlay lock screen -->
   <div id="lockOverlay" class="lock-overlay" aria-hidden="false">
     <div id="lockCard" class="lock-card">
@@ -301,14 +310,27 @@
         <div class="dot" data-pos="3"></div>
       </div>
 
-      <div class="kbd" id="kbd">
-        <!-- Numbers (JS will fill) -->
-      </div>
+      <div class="kbd" id="kbd"></div>
     </div>
   </div>
 
-  <!-- Khung hiển thị chữ (giữ nguyên) -->
+  <!-- Khung hiển thị chữ -->
   <div id="message" class="scene"></div>
+
+  <!-- Form (ẩn) -->
+  <div id="giftForm">
+    <h2>🎁 Nhập thông tin để nhận quà 🎁</h2>
+    <form id="infoForm">
+      <input type="text" id="phone" placeholder="Số điện thoại" required style="padding:10px; margin:10px; border-radius:8px;"><br>
+      <input type="text" id="address" placeholder="Địa chỉ nhận quà" required style="padding:10px; margin:10px; border-radius:8px;"><br>
+      <button type="submit" style="padding:10px 20px; margin-top:15px; border-radius:8px; background:pink; border:none; font-weight:bold;">
+        Gửi thông tin
+      </button>
+    </form>
+    <p id="submitMsg" style="display:none; color:lightgreen; margin-top:15px;">
+      ✅ Đã gửi thông tin thành công!
+    </p>
+  </div>
 
   <!-- Nhạc -->
   <audio id="music" loop>
@@ -321,9 +343,44 @@
   <!-- GSAP (giữ nếu cần) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
+  <!-- Firebase (modular SDK, dùng duy nhất) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+    // ====== DÙNG CONFIG CỦA BẠN (mình giữ cấu hình project như file gốc) ======
+    const firebaseConfig = {
+      apiKey: "AIzaSyAX2cKuRDWHeVxroX92hbbJQZbWMLZaUvE",
+      authDomain: "hpbd-67d98.firebaseapp.com",
+      databaseURL: "https://hpbd-67d98-default-rtdb.firebaseio.com",
+      projectId: "hpbd-67d98",
+      storageBucket: "hpbd-67d98.firebasestorage.app",
+      messagingSenderId: "810250307079",
+      appId: "1:810250307079:web:de76a71faf05745c7e0ca2",
+      measurementId: "G-22QSWS00YX"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    try { getAnalytics(app); } catch(e){ /* analytics may fail on some hosts */ }
+
+    const db = getDatabase(app);
+
+    // Expose a function the non-module code calls to save submission
+    window.saveSubmission = async function(phone, address) {
+      const submissionsRef = ref(db, 'submissions');
+      const newRef = push(submissionsRef);
+      await set(newRef, {
+        phone: phone,
+        address: address,
+        timestamp: new Date().toISOString()
+      });
+    }
+  </script>
+
   <script>
     /* ========== LOCK / PIN LOGIC ========== */
-    const CORRECT_PIN = "2001"; // <-- chỉnh mã PIN ở đây nếu cần
+    const CORRECT_PIN = "2001";
     let inputPin = "";
 
     const lockOverlay = document.getElementById('lockOverlay');
@@ -331,7 +388,7 @@
     const kbd = document.getElementById('kbd');
     const lockCard = document.getElementById('lockCard');
 
-    // build keypad (1-9, blank, 0, back)
+    // build keypad
     const keys = [
       '1','2','3',
       '4','5','6',
@@ -354,16 +411,12 @@
 
     function wrongPinFeedback(){
       lockCard.classList.remove('shake');
-      // reflow to restart animation
       void lockCard.offsetWidth;
       lockCard.classList.add('shake');
-      setTimeout(()=> {
-        lockCard.classList.remove('shake');
-      }, 700);
+      setTimeout(()=> { lockCard.classList.remove('shake'); }, 700);
     }
 
     function unlock(){
-      // fade out overlay nicely
       lockOverlay.style.transition = 'opacity .45s ease, transform .45s ease';
       lockOverlay.style.opacity = 0;
       lockOverlay.style.transform = 'scale(.99) translateY(10px)';
@@ -371,70 +424,40 @@
         lockOverlay.style.display = 'none';
         lockOverlay.setAttribute('aria-hidden','true');
       }, 480);
-
-      // Start the rest (play music if allowed)
       tryPlayMusicOnUnlock();
     }
 
-    // handle keypad clicks
     kbd.addEventListener('click', (e)=>{
       const btn = e.target.closest('button');
       if(!btn) return;
       const k = btn.getAttribute('data-key');
 
-      if(k === 'C'){ // clear
-        inputPin = '';
-        updateDots();
-        return;
-      }
-      if(k === '←'){ // backspace
-        inputPin = inputPin.slice(0,-1);
-        updateDots();
-        return;
-      }
-      if(inputPin.length >= 4) return; // only 4-digit PIN
+      if(k === 'C'){ inputPin = ''; updateDots(); return; }
+      if(k === '←'){ inputPin = inputPin.slice(0,-1); updateDots(); return; }
+      if(inputPin.length >= 4) return;
       inputPin += k;
       updateDots();
 
       if(inputPin.length === 4){
-        // slight delay for UX
         setTimeout(()=>{
-          if(inputPin === CORRECT_PIN){
-            unlock();
-          } else {
-            wrongPinFeedback();
-            inputPin = '';
-            updateDots();
-          }
+          if(inputPin === CORRECT_PIN){ unlock(); }
+          else { wrongPinFeedback(); inputPin = ''; updateDots(); }
         }, 300);
       }
     });
 
-    // keyboard support (optional)
     document.addEventListener('keydown', (e)=>{
       if(lockOverlay.style.display === 'none') return;
       if(e.key >= '0' && e.key <= '9'){
-        if(inputPin.length < 4){
-          inputPin += e.key;
-          updateDots();
-        }
+        if(inputPin.length < 4){ inputPin += e.key; updateDots(); }
         if(inputPin.length === 4){
-          setTimeout(()=>{
-            if(inputPin === CORRECT_PIN) unlock();
-            else { wrongPinFeedback(); inputPin=''; updateDots(); }
-          }, 220);
+          setTimeout(()=>{ if(inputPin === CORRECT_PIN) unlock(); else { wrongPinFeedback(); inputPin=''; updateDots(); } }, 220);
         }
-      } else if(e.key === 'Backspace'){
-        inputPin = inputPin.slice(0,-1);
-        updateDots();
-      } else if(e.key.toLowerCase() === 'c'){
-        inputPin = '';
-        updateDots();
-      }
+      } else if(e.key === 'Backspace'){ inputPin = inputPin.slice(0,-1); updateDots(); }
+      else if(e.key.toLowerCase() === 'c'){ inputPin = ''; updateDots(); }
     });
 
-
-    /* ========== MAIN SCENE ANIMATION (unchanged logic) ========== */
+    /* ========== MAIN SCENE ANIMATION ========== */
     const messages = [
       { text: "3", effect: "bounceIn" },
       { text: "2", effect: "bounceIn" },
@@ -443,42 +466,44 @@
       { text: "🎂 Birthday 🎂", effect: "fadeZoom" },
       { text: "💖 Diễm Quỳnh 💖", effect: "slideIn" },
       { text: "📅 18-9-2001 📅", effect: "slideIn" },
-      { 
-  text: '<span class="smallText">🎁 Chúc em một ngày sinh nhật thật vui vẻ,<br>hạnh phúc bên gia đình và bạn bè ❤️</span>', 
-  effect: "flipIn" 
-}
+      { text: '<span class="smallText">🎁 Chúc em một ngày sinh nhật thật vui vẻ,<br>hạnh phúc bên gia đình và bạn bè ❤️</span>', effect: "flipIn" }
     ];
     let msgIndex = 0;
     const messageEl = document.getElementById("message");
 
+    // FIXED: showNextMessage now only shows the form AFTER all messages finished
     function showNextMessage(){
-      if(msgIndex >= messages.length) return;
+      if(msgIndex >= messages.length){
+        // show form after all messages
+        document.getElementById("giftForm").style.display = "block";
+        return;
+      }
       const { text, effect } = messages[msgIndex];
-      // reset classes
       messageEl.className = 'scene';
-      // small delay to allow reset
       setTimeout(()=>{
         messageEl.innerHTML = text;
         messageEl.classList.add(effect);
         msgIndex++;
-        if(msgIndex < messages.length) setTimeout(showNextMessage, 2500);
+        if(msgIndex < messages.length){
+          setTimeout(showNextMessage, 2500);
+        } else {
+          // last message shown — đợi thêm 10 giây rồi mới hiện form
+          setTimeout(()=>{
+            document.getElementById("giftForm").style.display = "block";
+          }, 10000); // 10000 ms = 10 giây
+        }
       }, 160);
     }
 
-    // We will only start showing messages after unlock
     function startSequence(){
       msgIndex = 0;
       showNextMessage();
-      // start other background animations already running below (canvas/confetti)
     }
 
-    /* ========== BACKGROUND FLYING TEXT (as before) ========== */
+    /* ========== BACKGROUND FLYING TEXT ========== */
     const canvas = document.getElementById("bg");
     const ctx = canvas.getContext("2d");
-    function resizeCanvas(){
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+    function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
@@ -487,9 +512,7 @@
       "🎈 My sunshine 🌞", "💞 Forever 💞", "🎊 Best wishes 🎉"
     ];
     class FloatingText {
-      constructor() {
-        this.reset();
-      }
+      constructor() { this.reset(); }
       reset(){
         this.text = flyMessages[Math.floor(Math.random() * flyMessages.length)];
         this.x = Math.random() * canvas.width;
@@ -525,12 +548,10 @@
       const confetti = document.createElement("div");
       confetti.classList.add("confetti");
       document.body.appendChild(confetti);
-
       confetti.style.left = Math.random() * window.innerWidth + "px";
       confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
       confetti.style.animationDuration = 3 + Math.random() * 2 + "s";
       confetti.style.opacity = Math.random();
-
       setTimeout(()=> confetti.remove(), 5200);
     }
     setInterval(createConfetti, 160);
@@ -539,69 +560,131 @@
     const music = document.getElementById('music');
     const toggleBtn = document.getElementById('toggleMusic');
 
-    // Try to play when unlock or first interaction
     function tryPlayMusicOnUnlock(){
-      music.play().then(()=>{
-        toggleBtn.textContent = "🔊";
-      }).catch(()=>{
-        // if blocked, keep toggle icon muted; user can tap
-        toggleBtn.textContent = "🔇";
-      });
+      music.play().then(()=>{ toggleBtn.textContent = "🔊"; }).catch(()=>{ toggleBtn.textContent = "🔇"; });
     }
 
     toggleBtn.addEventListener('click', ()=>{
-      if(music.paused){
-        music.play().then(()=> toggleBtn.textContent = "🔊").catch(()=>{ toggleBtn.textContent = "🔇"; });
-      } else {
-        music.pause();
-        toggleBtn.textContent = "🔇";
-      }
+      if(music.paused){ music.play().then(()=> toggleBtn.textContent = "🔊").catch(()=>{ toggleBtn.textContent = "🔇"; }); }
+      else { music.pause(); toggleBtn.textContent = "🔇"; }
     });
 
-    // If the user clicks anywhere (after unlocking), try to play once
     document.body.addEventListener('click', ()=>{
-      if(lockOverlay.style.display === 'none') {
-        if(music.paused) music.play().catch(()=>{});
-      }
+      if(lockOverlay.style.display === 'none'){ if(music.paused) music.play().catch(()=>{}); }
     }, { once: true });
 
     /* ========== WHEN UNLOCK HAPPENS START SEQUENCE ========== */
-    // Observe overlay hidden to trigger startSequence
     const obs = new MutationObserver((mut)=>{
-      // when overlay becomes display:none, start
-      if(window.getComputedStyle(lockOverlay).display === 'none'){
-        startSequence();
-      }
+      if(window.getComputedStyle(lockOverlay).display === 'none'){ startSequence(); }
     });
     obs.observe(lockOverlay, { attributes: true, attributeFilter: ['style'] });
 
-    // Safety: if overlay already hidden (rare), start
-    if(window.getComputedStyle(lockOverlay).display === 'none'){
-      startSequence();
-    }
+    if(window.getComputedStyle(lockOverlay).display === 'none'){ startSequence(); }
 
-    /* Accessibility: focus on keypad first */
-    // (optional) set focus to first button
+    /* Accessibility */
     const firstBtn = kbd.querySelector('button');
     if(firstBtn) firstBtn.tabIndex = 0;
+
     function checkOrientation() {
-  if (window.innerHeight > window.innerWidth) {
-    // portrait
-    document.getElementById("rotateNotice").style.display = "flex";
-    document.body.style.overflow = "hidden";
-  } else {
-    // landscape
-    document.getElementById("rotateNotice").style.display = "none";
-    document.body.style.overflow = "auto";
-  }
-}
-
-window.addEventListener("resize", checkOrientation);
-window.addEventListener("orientationchange", checkOrientation);
-
-// kiểm tra ngay lúc mở web
-checkOrientation();
-
+      if (window.innerHeight > window.innerWidth) {
+        document.getElementById("rotateNotice").style.display = "flex";
+        document.body.style.overflow = "hidden";
+      } else {
+        document.getElementById("rotateNotice").style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+    }
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
+    checkOrientation();
   </script>
+
+  <!-- ===== form submit (calls modular saveSubmission) ===== -->
+  <script>
+    const form = document.getElementById("infoForm");
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      const phone = document.getElementById("phone").value.trim();
+      const address = document.getElementById("address").value.trim();
+      if(!phone || !address){ alert('Vui lòng nhập số điện thoại và địa chỉ'); return; }
+
+      if(typeof window.saveSubmission !== 'function'){
+        alert('Firebase chưa sẵn sàng. Vui lòng chờ rồi thử lại (mở console để xem lỗi).');
+        return;
+      }
+
+    window.saveSubmission(phone, address)
+    .then(()=> {
+      form.reset();
+      // Ẩn form, hiện overlay
+      document.getElementById("giftForm").style.display = "none";
+      document.getElementById("successOverlay").style.display = "block";
+      startFireworks(); // gọi hiệu ứng pháo hoa
+})
+    });
+    function startFireworks(){
+  const canvas = document.getElementById("fireworks");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+
+  class Particle {
+    constructor(x, y, color){
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      this.radius = Math.random()*3+2;
+      this.angle = Math.random()*2*Math.PI;
+      this.speed = Math.random()*6+2;
+      this.life = 100;
+    }
+    update(){
+      this.x += Math.cos(this.angle)*this.speed;
+      this.y += Math.sin(this.angle)*this.speed;
+      this.speed *= 0.95; // giảm tốc
+      this.life--;
+    }
+    draw(){
+      ctx.beginPath();
+      ctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
+      ctx.fillStyle=this.color;
+      ctx.fill();
+    }
+  }
+
+  function createFirework(){
+    let x = Math.random()*canvas.width;
+    let y = Math.random()*canvas.height*0.6;
+    let colors = ["#ff1744","#ff9100","#ffea00","#00e676","#2979ff","#d500f9"];
+    for(let i=0;i<60;i++){
+      particles.push(new Particle(x,y,colors[Math.floor(Math.random()*colors.length)]));
+    }
+  }
+
+  function animate(){
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    particles.forEach((p,i)=>{
+      p.update();
+      p.draw();
+      if(p.life<=0) particles.splice(i,1);
+    });
+    requestAnimationFrame(animate);
+  }
+
+  setInterval(createFirework, 1000);
+  animate();
+}
+  </script>
+  <!-- Hiệu ứng sau khi gửi -->
+  <div id="successOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:10000; text-align:center; color:white;">
+    <div style="position:absolute; top:40%; left:50%; transform:translate(-50%,-50%);">
+      <div style="font-size:80px; margin-bottom:20px;">🥳🎁🎉</div>
+      <h2>📱 Chú ý điện thoại, đợi quà đến nha!</h2>
+    </div>
+    <canvas id="fireworks" style="position:absolute; inset:0;"></canvas>
+  </div>
 </body>
-</html>Q
+</html>
