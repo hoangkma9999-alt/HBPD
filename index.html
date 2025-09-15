@@ -30,8 +30,136 @@
       font-size: 0.5em;
       line-height: 1.4;
     }
+    /* chữ hiển thị chung */
+    #message {
+      font-size: 8em; /* giữ nguyên mặc định cho chữ Happy, Birthday,... */
+      text-align: center;
+      margin: 20px 0;
+    }
 
-    
+    /* riêng cho số 3-2-1 */
+    #message:has(.countdown) {
+      font-size: 10em;       /* 👈 to gấp 3 lần */
+      font-weight: bold;
+      color: #ffeb3b;       /* vàng rực cho nổi bật */
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+    }
+        #giftChoice {
+      display:none;
+      position: fixed;
+      z-index: 9999;
+      left: 50%;
+      top: 60%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 12px;
+      color: white;
+      text-align: center;
+      min-width: 300px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    }
+    #giftChoice button {
+      margin: 10px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #btnYes { background: pink; }
+    #btnNo  { background: lightgray; }
+
+
+    /* Thiệp PNG */
+#cardImage {
+  display: none;
+  width: 50%;     /* 👈 ví dụ: chiếm 70% chiều ngang màn hình */
+  max-width: 50%;
+  margin: 20px auto;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Hiệu ứng lật ngửa 3D */
+@keyframes flipCard {
+  0%   { opacity: 0; transform: rotateY(90deg) scale(0.8); }
+  100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+}
+.flipCard { animation: flipCard 1.2s ease forwards; }
+
+@keyframes slideInCard {
+  from { transform: translateX(-120%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+.card-side {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-size: cover;
+  backface-visibility: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* Cánh trái */
+.card-side.left {
+  left: 0;
+  background-image: url('a.png');
+  transform-origin: left center;
+  transform: rotateY(180deg);   /* ban đầu gập lại */
+}
+
+.card-side.right {
+  right: 0;
+  background-image: url('a.png');
+  transform-origin: right center;
+  transform: rotateY(-180deg);  /* ban đầu gập lại */
+}
+
+
+.card-inside {
+  position: absolute;
+  inset: 0;
+  background: white;
+  text-align: center;
+  padding: 20px;
+}
+.card-inside img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Khi mở */
+.open .left  { animation: openLeft 3s forwards; }
+.open .right { animation: openRight 3s forwards 0.5s; }
+
+@keyframes openLeft {
+  from { transform: rotateY(180deg); }
+  to   { transform: rotateY(0deg); }
+}
+@keyframes openRight {
+  from { transform: rotateY(-180deg); }
+  to   { transform: rotateY(0deg); }
+}
+/* Hiệu ứng card trượt từ trái + lật 3D */
+@keyframes slideFlipIn {
+  0%   { opacity: 0; transform: translateX(-150%) rotateY(90deg) scale(0.8); }
+  70%  { opacity: 1; transform: translateX(20px) rotateY(-10deg) scale(1.05); }
+  100% { opacity: 1; transform: translateX(0) rotateY(0) scale(1); }
+}
+
+.slideFlipIn { animation: slideFlipIn 5s ease forwards; }
+
+
+/* Hiệu ứng lật ngửa 3D */
+@keyframes flipCard {
+  0%   { opacity: 0; transform: rotateY(90deg) scale(0.8); }
+  100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+}
+.flipCard { animation: flipCard 1.2s ease forwards; }
 
     /* ========== LOCK SCREEN OVERLAY ========== */
     .lock-overlay {
@@ -258,6 +386,8 @@
       100% { transform: rotate(0deg); }
     }
 
+
+
     /* gift form styling (fixed centered, hidden until end) */
     #giftForm {
       display:none;
@@ -316,21 +446,43 @@
 
   <!-- Khung hiển thị chữ -->
   <div id="message" class="scene"></div>
-
+  <!-- Thiệp PNG -->
+<!-- Thiệp PNG -->
+<img id="cardImage" src="HPBD.png" alt="Birthday Card">
+      <div id="giftChoice">
+      <h2>🎁 Bạn có muốn nhận quà không?</h2>
+      <button id="btnYes">Có</button>
+      <button id="btnNo">Không</button>
+      <p id="funnyMsg" style="display:none; margin-top:10px; color:lightgreen;"></p>
+    </div>
   <!-- Form (ẩn) -->
-  <div id="giftForm">
-    <h2>🎁 Nhập thông tin để nhận quà 🎁</h2>
-    <form id="infoForm">
-      <input type="text" id="phone" placeholder="Số điện thoại" required style="padding:10px; margin:10px; border-radius:8px;"><br>
-      <input type="text" id="address" placeholder="Địa chỉ nhận quà" required style="padding:10px; margin:10px; border-radius:8px;"><br>
-      <button type="submit" style="padding:10px 20px; margin-top:15px; border-radius:8px; background:pink; border:none; font-weight:bold;">
-        Gửi thông tin
-      </button>
-    </form>
-    <p id="submitMsg" style="display:none; color:lightgreen; margin-top:15px;">
-      ✅ Đã gửi thông tin thành công!
-    </p>
-  </div>
+<div id="giftForm">
+  <h2>🎁 Nhập thông tin để nhận quà 🎁</h2>
+  <form id="infoForm">
+    <input type="text" id="phone" placeholder="Số điện thoại" required 
+           style="padding:10px; margin:10px; border-radius:8px;"><br>
+    <input type="text" id="address" placeholder="Địa chỉ nhận quà" required 
+           style="padding:10px; margin:10px; border-radius:8px;"><br>
+
+    <!-- Thêm lựa chọn thời gian -->
+    <select id="deliveryTime" required 
+            style="padding:10px; margin:10px; border-radius:8px; width:90%;">
+      <option value="" disabled selected>Chọn thời gian nhận quà</option>
+      <option value="Sáng">🌅 Buổi sáng</option>
+      <option value="Trưa">🌞 Buổi trưa</option>
+      <option value="Chiều">🌇 Buổi chiều</option>
+      <option value="Tối">🌙 Buổi tối</option>
+    </select><br>
+
+    <button type="submit" 
+            style="padding:10px 20px; margin-top:15px; border-radius:8px; background:pink; border:none; font-weight:bold;">
+      Gửi thông tin
+    </button>
+  </form>
+  <p id="submitMsg" style="display:none; color:lightgreen; margin-top:15px;">
+    ✅ Đã gửi thông tin thành công!
+  </p>
+</div>
 
   <!-- Nhạc -->
   <audio id="music" loop>
@@ -370,11 +522,17 @@
     window.saveSubmission = async function(phone, address) {
       const submissionsRef = ref(db, 'submissions');
       const newRef = push(submissionsRef);
-      await set(newRef, {
+      const now = new Date();
+      const timestamp = now.toLocaleString("vi-VN", { 
+        timeZone: "Asia/Ho_Chi_Minh", 
+        hour12: false 
+      });
+      set(newRef, {
         phone: phone,
         address: address,
-        timestamp: new Date().toISOString()
-      });
+        choice: giftChoiceValue,
+        timestamp: timestamp   // 👈 dùng chuỗi đã format
+      })
     }
   </script>
 
@@ -465,36 +623,45 @@
       { text: "🎉 Happy 🎉", effect: "fadeZoom" },
       { text: "🎂 Birthday 🎂", effect: "fadeZoom" },
       { text: "💖 Diễm Quỳnh 💖", effect: "slideIn" },
-      { text: "📅 18-9-2001 📅", effect: "slideIn" },
-      { text: '<span class="smallText">🎁 Chúc em một ngày sinh nhật thật vui vẻ,<br>hạnh phúc bên gia đình và bạn bè ❤️</span>', effect: "flipIn" }
+      { text: "📅 18-09-2001 📅", effect: "slideIn" },
     ];
     let msgIndex = 0;
     const messageEl = document.getElementById("message");
 
     // FIXED: showNextMessage now only shows the form AFTER all messages finished
     function showNextMessage(){
-      if(msgIndex >= messages.length){
-        // show form after all messages
-        document.getElementById("giftForm").style.display = "block";
-        return;
-      }
-      const { text, effect } = messages[msgIndex];
-      messageEl.className = 'scene';
-      setTimeout(()=>{
-        messageEl.innerHTML = text;
-        messageEl.classList.add(effect);
-        msgIndex++;
-        if(msgIndex < messages.length){
-          setTimeout(showNextMessage, 2500);
-        } else {
-          // last message shown — đợi thêm 10 giây rồi mới hiện form
-          setTimeout(()=>{
-            document.getElementById("giftForm").style.display = "block";
-          }, 10000); // 10000 ms = 10 giây
-        }
-      }, 160);
-    }
+  if(msgIndex >= messages.length){
+    // Hiện thiệp PNG thay vì chữ
+    const card = document.getElementById("cardImage");
+    card.style.display = "block";
+    card.classList.add("slideFlipIn");
 
+
+    // Sau khi hiện thiệp → đợi 10s rồi mới hiện form
+    setTimeout(()=>{
+      document.getElementById("giftChoice").style.display = "block";
+    }, 12000);
+    return;
+  }
+
+  const { text, effect } = messages[msgIndex];
+  messageEl.className = 'scene';
+  setTimeout(()=>{
+    messageEl.innerHTML = text;
+    // Nếu text là số đếm thì thêm class countdown
+    if(["3","2","1"].includes(text)){
+      messageEl.classList.add("countdown");
+    }
+    messageEl.classList.add(effect);
+    msgIndex++;
+    if(msgIndex < messages.length){
+      setTimeout(showNextMessage, 2500);
+    } else {
+      // Sau khi hiện xong dòng cuối → sẽ nhảy sang card
+      setTimeout(showNextMessage, 2500);
+    }
+  }, 160);
+}
     function startSequence(){
       msgIndex = 0;
       showNextMessage();
@@ -627,7 +794,7 @@
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-
+  let giftChoiceValue = ""; // lưu lựa chọn Có / Không
   let particles = [];
 
   class Particle {
@@ -677,6 +844,22 @@
   setInterval(createFirework, 1000);
   animate();
 }
+document.getElementById("btnYes").addEventListener("click", ()=>{
+  giftChoiceValue = "Có";   // 👈 lưu lựa chọn
+  document.getElementById("giftChoice").style.display = "none";
+  document.getElementById("giftForm").style.display = "block";
+});
+
+document.getElementById("btnNo").addEventListener("click", ()=>{
+  giftChoiceValue = "Không"; // 👈 lưu lựa chọn
+  const funny = document.getElementById("funnyMsg");
+  funny.textContent = "😏 Thôi chứ không nhận thì quà vẫn về tay nha!";
+  funny.style.display = "block";
+  setTimeout(()=>{
+    document.getElementById("giftChoice").style.display = "none";
+    document.getElementById("giftForm").style.display = "block";
+  }, 3000);
+});
   </script>
   <!-- Hiệu ứng sau khi gửi -->
   <div id="successOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:10000; text-align:center; color:white;">
