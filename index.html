@@ -197,7 +197,21 @@
       transform: translateY(0);
       transition: transform .45s cubic-bezier(.2,.9,.3,1), opacity .3s;
     }
-
+    /* Mobile: rộng hơn để nút không bị che mất */
+    @media (max-width: 480px) {
+      .lock-card {
+        width: 90%;        /* chiếm gần hết chiều ngang */
+        max-width: 360px;  /* không to quá */
+        padding: 14px;
+      }
+      .kbd {
+        gap: 8px;
+      }
+      .btn {
+        padding: 14px 0;   /* nút cao hơn, dễ bấm */
+        font-size: 1rem;
+      }
+}
     .lock-header {
       display:flex;
       gap:14px;
