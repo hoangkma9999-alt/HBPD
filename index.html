@@ -75,8 +75,8 @@
     /* Thiệp PNG */
 #cardImage {
   display: none;
-  width: 75%;     /* 👈 ví dụ: chiếm 70% chiều ngang màn hình */
-  max-width: 75%;
+  width: 70%;     /* 👈 ví dụ: chiếm 70% chiều ngang màn hình */
+  max-width: 70%;
   margin: 20px auto;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -902,7 +902,8 @@ document.getElementById("btnNo").addEventListener("click", ()=>{
       <div class="lock-icon">🔐</div>
       <div class="lock-title">
         <h3>Mật khẩu ở trong quà </h3>
-        <p>Đoán được mật khẩu thì quá giỏi - thua 😏</p>
+        <p>Đoán được mật khẩu thì quá giỏi-thua 😏</p>
+        <p id="extraPassMsg" style="margin-top:12px; font-size:1rem;"></p>
       </div>
     </div>
 
@@ -916,7 +917,7 @@ document.getElementById("btnNo").addEventListener("click", ()=>{
 
     <!-- keypad -->
     <div class="kbd" id="extraKbd"></div>
-    <p id="extraPassMsg" style="margin-top:12px; font-size:1rem;"></p>
+    
   </div>
 </div>
 
