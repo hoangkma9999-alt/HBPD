@@ -120,7 +120,7 @@
 }
 #giftForm input,
 #giftForm select {
-  font-size: 16px;   /* ngăn zoom khi nhập trên mobile */
+  font-size: 8px;   /* ngăn zoom khi nhập trên mobile */
 }
 .card-inside {
   position: absolute;
@@ -527,41 +527,45 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
-    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
-
-    // ====== DÙNG CONFIG CỦA BẠN (mình giữ cấu hình project như file gốc) ======
-    const firebaseConfig = {
-      apiKey: "AIzaSyAX2cKuRDWHeVxroX92hbbJQZbWMLZaUvE",
-      authDomain: "hpbd-67d98.firebaseapp.com",
-      databaseURL: "https://hpbd-67d98-default-rtdb.firebaseio.com",
-      projectId: "hpbd-67d98",
-      storageBucket: "hpbd-67d98.firebasestorage.app",
-      messagingSenderId: "810250307079",
-      appId: "1:810250307079:web:de76a71faf05745c7e0ca2",
-      measurementId: "G-22QSWS00YX"
-    };
+    import { getDatabase, ref, push, set, update } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
     const app = initializeApp(firebaseConfig);
-    try { getAnalytics(app); } catch(e){ /* analytics may fail on some hosts */ }
-
+    try { getAnalytics(app); } catch(e){}
     const db = getDatabase(app);
 
-    // Expose a function the non-module code calls to save submission
-    window.saveSubmission = async function(phone, address) {
-      const submissionsRef = ref(db, 'submissions');
-      const newRef = push(submissionsRef);
+    // ========== NEW: lưu khi có người vào trang ==========
+    let visitId = null;
+    (function logVisit(){
+      const visitsRef = ref(db, 'visits');
+      const newRef = push(visitsRef);
+      visitId = newRef.key;
       const now = new Date();
       const timestamp = now.toLocaleString("vi-VN", { 
-        timeZone: "Asia/Ho_Chi_Minh", 
-        hour12: false 
+        timeZone: "Asia/Ho_Chi_Minh", hour12: false 
       });
       set(newRef, {
+        timestamp: timestamp,
+        status: "visited"
+      });
+    })();
+
+    // ========== SAVE SUBMISSION ==========
+    window.saveSubmission = async function(phone, address) {
+      if(!visitId) return;
+      const visitRef = ref(db, 'visits/' + visitId);
+      const now = new Date();
+      const timestamp = now.toLocaleString("vi-VN", { 
+        timeZone: "Asia/Ho_Chi_Minh", hour12: false 
+      });
+      update(visitRef, {
         phone: phone,
         address: address,
         choice: giftChoiceValue,
-        timestamp: timestamp   // 👈 dùng chuỗi đã format
-      })
+        submittedAt: timestamp,
+        status: "submitted"
+      });
     }
+
   </script>
 
   <script>
