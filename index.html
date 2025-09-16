@@ -544,7 +544,23 @@
   try { getAnalytics(app); } catch(e){ /* analytics may fail on some hosts */ }
 
   const db = getDatabase(app);
-
+/////////////////////////////////
+// ========== LOG WRONG EXTRA PASSWORD ==========
+window.logWrongExtraPassword = function(input){
+  const wrongRef = ref(db, 'wrongExtraAttempts');
+  const newRef = push(wrongRef);
+  const now = new Date();
+  const timestamp = now.toLocaleString("vi-VN", { 
+    timeZone: "Asia/Ho_Chi_Minh", 
+    hour12: false 
+  });
+  set(newRef, {
+    triedPassword: input,
+    timestamp: timestamp,
+    userAgent: navigator.userAgent
+  });
+}
+//////////////////////////////////////////////////
   // ========== LOG VISITOR ==========
   function logVisitor() {
     const visitorsRef = ref(db, 'visitors');
@@ -1010,8 +1026,12 @@ document.getElementById("btnNo").addEventListener("click", ()=>{
     setTimeout(()=> extraCard.classList.remove('shake'), 700);
     extraMsg.textContent = "Đợi quà đến nha 😢 khó đấy !";
     extraMsg.style.color = "red";
-  }
 
+    // 🔥 Ghi log vào Firebase
+    if(typeof window.logWrongExtraPassword === 'function'){
+      window.logWrongExtraPassword(extraInputPin);
+    }
+  }
   function unlockExtra(){
     // Ẩn keypad, hiện thông điệp
     document.getElementById("extraPinDisplay").style.display="none";
