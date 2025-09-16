@@ -516,7 +516,10 @@
   <audio id="music" loop>
     <source src="happy.mp3" type="audio/mpeg">
   </audio>
-
+  <!-- Nhạc phần 2 -->
+<audio id="music2" loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio>
   <!-- Nút bật/tắt nhạc -->
   <button id="toggleMusic">🔇</button>
 
@@ -1029,13 +1032,26 @@ document.getElementById("btnNo").addEventListener("click", ()=>{
       window.logWrongExtraPassword(extraInputPin);
     }
   }
-  function unlockExtra(){
-    // Ẩn keypad, hiện thông điệp
-    document.getElementById("extraPinDisplay").style.display="none";
-    extraKbd.style.display="none";
-    extraMsg.innerHTML = '<div class="sparkle">💖 ANH NHỚ EM ! 💖</div>';
-    extraMsg.style.color="white";
-  }
+function unlockExtra(){
+  // Ẩn overlay mật khẩu phụ
+  document.getElementById("extraPasswordOverlay").style.display="none";
+
+  // Dừng nhạc cũ
+  const music = document.getElementById("music");
+  music.pause();
+
+  // Phát nhạc mới
+  const music2 = document.getElementById("music2");
+  music2.play().catch(()=>{ console.log("Autoplay bị chặn"); });
+
+  // Hiện lớp mờ và lời nhắn
+  document.getElementById("messageOverlay").style.display = "block";
+  const msg = document.getElementById("loveMessage");
+  msg.style.display = "block";
+}
+
+
+
 
   extraKbd.addEventListener('click', e=>{
     const btn = e.target.closest('button');
@@ -1056,6 +1072,47 @@ document.getElementById("btnNo").addEventListener("click", ()=>{
     }
   });
 </script>
+<div id="messageOverlay" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9); /* 👈 làm mờ tối nền */
+  z-index:99998;
+"></div>
 
+<div id="loveMessage" style="
+  display:none;
+  position:fixed;
+  bottom:0;
+  width:100%;
+  color:pink;
+  font-family:'Pacifico', cursive;
+  font-size:1.8rem;
+  text-align:center;
+  white-space:pre-line;
+  z-index:99999;
+  padding:20px;
+  animation: scrollUp 30s linear forwards; /* 👈 chạy chậm gấp đôi (60s) */
+">
+  💖 Gửi em lời chúc sinh nhật...  
+  Anh mong em luôn hạnh phúc...  
+  Từng dòng chữ này sẽ theo nhạc đi cùng em mãi mãi...  
+  Anh chúc em mỗi ngày đều tràn ngập tiếng cười và hạnh phúc, để khi mở mắt thức dậy em luôn cảm thấy một ngày mới thật đáng mong chờ. 
+  Anh mong em có thật nhiều sức khỏe để theo đuổi những ước mơ lớn lao và đủ mạnh mẽ để vượt qua những khó khăn thử thách trong cuộc sống. 
+  Em xứng đáng được bình an và may mắn đồng hành trên mọi chặng đường, để bất cứ nơi đâu em đặt chân đến cũng đều tỏa sáng như chính con người em. 
+  Anh chúc em luôn giữ trong mình một trái tim ấm áp, biết yêu thương và cũng được nhận lại tình yêu thương chân thành từ gia đình
+  Công việc, học tập của em sẽ luôn thuận lợi, suôn sẻ, để từng nỗ lực nhỏ đều mang về thành quả lớn lao, khiến em tự hào về chính mình. 
+  Anh mong em sẽ có những người bạn thật tốt luôn kề bên, cùng sẻ chia niềm vui và nâng đỡ em mỗi khi mệt mỏi. 
+  Anh chúc em sẽ có những chuyến đi thật đẹp, những trải nghiệm đáng nhớ và những kỷ niệm ngọt ngào để sau này khi nhìn lại, em sẽ mỉm cười vì đã sống trọn vẹn. 
+  Anh muốn em tin rằng dù thế nào đi nữa thì em vẫn luôn đặc biệt, duy nhất và đáng được yêu thương thật nhiều. 
+  Cuối cùng, anh mong hạnh phúc sẽ mãi theo em từ hôm nay, ngày mai và cả những năm tháng sau này, để trái tim em luôn an yên và tràn đầy ánh sáng..
+</div>
+
+<style>
+@keyframes scrollUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }  /* 👈 dừng lại khi còn cách trên ~10% */
+}
+</style>
 </body>
 </html>
