@@ -75,8 +75,8 @@
     /* Thiệp PNG */
 #cardImage {
   display: none;
-  width: 70%;     /* 👈 ví dụ: chiếm 70% chiều ngang màn hình */
-  max-width: 70%;
+  width: 65%;     /* 👈 ví dụ: chiếm 70% chiều ngang màn hình */
+  max-width: 65%;
   margin: 20px auto;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -118,8 +118,10 @@
   transform-origin: right center;
   transform: rotateY(-180deg);  /* ban đầu gập lại */
 }
-
-
+#giftForm input,
+#giftForm select {
+  font-size: 16px;   /* ngăn zoom khi nhập trên mobile */
+}
 .card-inside {
   position: absolute;
   inset: 0;
@@ -485,9 +487,10 @@
   <h2>🌞 Thứ tui cần là thông tin 🌞</h2>
   <form id="infoForm">
     <input type="text" id="phone" placeholder="Số điện thoại" required 
-           style="padding:10px; margin:10px; border-radius:8px;"><br>
+          style="padding:10px; margin:10px; border-radius:8px; font-size:16px;">
     <input type="text" id="address" placeholder="Địa chỉ nhận quà" required 
-           style="padding:10px; margin:10px; border-radius:8px;"><br>
+          style="padding:10px; margin:10px; border-radius:8px; font-size:16px;">
+
 
     <!-- Thêm lựa chọn thời gian -->
     <select id="deliveryTime" required 
