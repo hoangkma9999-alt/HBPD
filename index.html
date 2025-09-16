@@ -557,7 +557,6 @@ window.logWrongExtraPassword = function(input){
   set(newRef, {
     triedPassword: input,
     timestamp: timestamp,
-    userAgent: navigator.userAgent
   });
 }
 //////////////////////////////////////////////////
@@ -573,7 +572,6 @@ window.logWrongExtraPassword = function(input){
     set(newRef, {
       message: "Có ai đó vừa truy cập 🎉",
       timestamp: timestamp,
-      userAgent: navigator.userAgent   // 👈 tùy chọn, ghi lại thông tin trình duyệt
     });
   }
 
