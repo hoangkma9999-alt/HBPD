@@ -527,45 +527,41 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
-    import { getDatabase, ref, push, set, update } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+    // ====== DÙNG CONFIG CỦA BẠN (mình giữ cấu hình project như file gốc) ======
+    const firebaseConfig = {
+      apiKey: "AIzaSyAX2cKuRDWHeVxroX92hbbJQZbWMLZaUvE",
+      authDomain: "hpbd-67d98.firebaseapp.com",
+      databaseURL: "https://hpbd-67d98-default-rtdb.firebaseio.com",
+      projectId: "hpbd-67d98",
+      storageBucket: "hpbd-67d98.firebasestorage.app",
+      messagingSenderId: "810250307079",
+      appId: "1:810250307079:web:de76a71faf05745c7e0ca2",
+      measurementId: "G-22QSWS00YX"
+    };
 
     const app = initializeApp(firebaseConfig);
-    try { getAnalytics(app); } catch(e){}
+    try { getAnalytics(app); } catch(e){ /* analytics may fail on some hosts */ }
+
     const db = getDatabase(app);
 
-    // ========== NEW: lưu khi có người vào trang ==========
-    let visitId = null;
-    (function logVisit(){
-      const visitsRef = ref(db, 'visits');
-      const newRef = push(visitsRef);
-      visitId = newRef.key;
+    // Expose a function the non-module code calls to save submission
+    window.saveSubmission = async function(phone, address) {
+      const submissionsRef = ref(db, 'submissions');
+      const newRef = push(submissionsRef);
       const now = new Date();
       const timestamp = now.toLocaleString("vi-VN", { 
-        timeZone: "Asia/Ho_Chi_Minh", hour12: false 
+        timeZone: "Asia/Ho_Chi_Minh", 
+        hour12: false 
       });
       set(newRef, {
-        timestamp: timestamp,
-        status: "visited"
-      });
-    })();
-
-    // ========== SAVE SUBMISSION ==========
-    window.saveSubmission = async function(phone, address) {
-      if(!visitId) return;
-      const visitRef = ref(db, 'visits/' + visitId);
-      const now = new Date();
-      const timestamp = now.toLocaleString("vi-VN", { 
-        timeZone: "Asia/Ho_Chi_Minh", hour12: false 
-      });
-      update(visitRef, {
         phone: phone,
         address: address,
         choice: giftChoiceValue,
-        submittedAt: timestamp,
-        status: "submitted"
-      });
+        timestamp: timestamp   // 👈 dùng chuỗi đã format
+      })
     }
-
   </script>
 
   <script>
