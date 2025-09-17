@@ -562,23 +562,6 @@ window.logWrongExtraPassword = function(input){
     timestamp: timestamp,
   });
 }
-/////////////////////////////////
-// ========== LOG CORRECT EXTRA PASSWORD ==========
-window.logCorrectExtraPassword = function(input){
-  const correctRef = ref(db, 'correctExtraAttempts');
-  const newRef = push(correctRef);
-  const now = new Date();
-  const timestamp = now.toLocaleString("vi-VN", { 
-    timeZone: "Asia/Ho_Chi_Minh", 
-    hour12: false 
-  });
-  set(newRef, {
-    enteredPassword: input,
-    status: "correct",
-    timestamp: timestamp,
-  });
-}
-//////////////////////////////////////////////////
 //////////////////////////////////////////////////
   // ========== LOG VISITOR ==========
   function logVisitor() {
@@ -1011,7 +994,7 @@ document.getElementById("btnNo").addEventListener("click", ()=>{
   });
 
   // ==== Logic mật khẩu phụ ====
-  const EXTRA_CORRECT = "2223"; // 🔑 mật khẩu phụ (đổi tuỳ ý)
+  const EXTRA_CORRECT = "2223"; 
   let extraInputPin = "";
 
   const extraPinDots = document.querySelectorAll('#extraPinDisplay .dot');
@@ -1053,11 +1036,6 @@ function unlockExtra(){
   // Ẩn overlay mật khẩu phụ
   document.getElementById("extraPasswordOverlay").style.display="none";
 
-  // 🔥 Ghi log vào Firebase
-  if(typeof window.logCorrectExtraPassword === 'function'){
-    window.logCorrectExtraPassword(extraInputPin);
-  }
-
   // Dừng nhạc cũ
   const music = document.getElementById("music");
   music.pause();
@@ -1071,7 +1049,6 @@ function unlockExtra(){
   const msg = document.getElementById("loveMessage");
   msg.style.display = "block";
 }
-
 
 
 
@@ -1117,7 +1094,13 @@ function unlockExtra(){
   padding:20px;
   animation: scrollUp 60s linear forwards; /* 👈 chạy chậm gấp đôi (60s) */
 ">
-💖 Sinh nhật em năm nay, anh muốn gửi đến em không chỉ một lời chúc, mà là tất cả những suy nghĩ và 
+💖 
+------------------
+Nếu bạn nghĩ được ra MK thì bạn làm mk bất ngờ đó. Mình đã đọc tin nhắn mà bạn gửi rồi !
+Thì ra là do mình ảo tường và suy nghĩ quá nhiều 
+Xin lỗi vì lại làm phiền cuộc sống của bạn nhé. Không cần đọc những câu bên dưới đâu ! 
+------------------
+Sinh nhật em năm nay, anh muốn gửi đến em không chỉ một lời chúc, mà là tất cả những suy nghĩ và 
 tình cảm mà anh đã âm thầm giữ trong lòng suốt thời gian qua ✨.
 Đã rất lâu rồi anh không thể nói với em hai chữ “chúc mừng” 🎂, cũng không thể tặng em những món quà như ngày xưa nữa 🎁.
 
@@ -1132,7 +1115,7 @@ Nhưng cuối cùng anh đã không làm được
 
 Anh nghĩ là mình hiểu những gì em đã đăng và anh xin lỗi vì khi đó có một vài lí do mà anh chưa thể nói ra ❤️.
 
-Thời gian qua , anh nhận ra nhiều điều và thật là vui khi em vẫn còn ở đó .
+Thời gian qua , anh nhận ra nhiều điều và thật là vui khi nhận ra em vẫn ở đó .
 Dù anh biết em mạnh mẽ hơn những gì người khác nghĩ nhưng anh không muốn em một mình  
 Từ giờ trở đi, anh sẽ không để những giọt nước mắt của em rơi vì tủi thân hay bất lực nữa 😢💖
 
