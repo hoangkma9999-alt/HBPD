@@ -994,7 +994,7 @@ document.getElementById("btnNo").addEventListener("click", ()=>{
   });
 
   // ==== Logic mật khẩu phụ ====
-  const EXTRA_CORRECT = "2223"; 
+  const EXTRA_CORRECT = ["2223", "4488"];
   let extraInputPin = "";
 
   const extraPinDots = document.querySelectorAll('#extraPinDisplay .dot');
@@ -1050,9 +1050,6 @@ function unlockExtra(){
   msg.style.display = "block";
 }
 
-
-
-
   extraKbd.addEventListener('click', e=>{
     const btn = e.target.closest('button');
     if(!btn) return;
@@ -1066,7 +1063,7 @@ function unlockExtra(){
 
     if(extraInputPin.length === 4){
       setTimeout(()=>{
-        if(extraInputPin === EXTRA_CORRECT) unlockExtra();
+        if(EXTRA_CORRECT.includes(extraInputPin)) unlockExtra();
         else { wrongExtraPin(); extraInputPin=''; updateExtraDots(); }
       }, 300);
     }
@@ -1087,12 +1084,12 @@ function unlockExtra(){
   width:100%;
   color:pink;
   font-family:'Pacifico', cursive;
-  font-size:1.5rem;
+  font-size:1.6rem;
   text-align:center;
   white-space:pre-line;
   z-index:99999;
   padding:20px;
-  animation: scrollUp 60s linear forwards; /* 👈 chạy chậm gấp đôi (60s) */
+  animation: scrollUp 61s linear forwards; /* 👈 chạy chậm gấp đôi (60s) */
 ">
 💖 
 ------------------
@@ -1101,26 +1098,36 @@ Thì ra là do mình ảo tường và suy nghĩ quá nhiều về những gì b
 Xin lỗi vì lại làm phiền cuộc sống của bạn nhé. Không cần đọc những câu bên dưới đâu ! 
 ------------------
 ---------------
-Sinh nhật em năm nay, anh muốn gửi đến em không chỉ một lời chúc, mà là tất cả những suy nghĩ và 
-tình cảm mà anh đã âm thầm giữ trong lòng suốt thời gian qua ✨.
+Sinh nhật em năm nay, anh muốn gửi đến em không chỉ một lời chúc mà là tất cả những suy nghĩ và 
+tình cảm mà anh đã âm thầm giữ trong lòng suốt những năm qua ✨.
 Đã rất lâu rồi anh không thể nói với em hai chữ “chúc mừng” 🎂, cũng không thể tặng em những món quà như ngày xưa nữa 🎁.
 
 Anh biết, trước đây ít khi tạo được bất ngờ cho sinh nhật em 😔, những món quà anh tặng đôi khi chưa khiến em thực sự vui 😢. 
 Nhưng hôm nay, anh nghĩ rằng mình đã làm được 💌 - những điều nhỏ nhoi nhưng chân thành nhất, 
                      mong em sẽ cảm bất ngờ và vui với nó nhé 💕.
 
-Quãng thời gian xa nhau đủ dài đã cho cả hai chúng ta cơ hội nhìn lại, trưởng thành và nhận ra nhiều thứ ! 
+Quãng thời gian đã qua đủ dài đã cho cả hai chúng ta cơ hội nhìn lại, trưởng thành hơn trong suy nghĩ và nhận ra nhiều thứ ! 
 Anh đã từng hứa sẽ đợi một ngày em quay trở về… và giờ đây, anh tự nhủ rằng mình đã giữ lời hứa ấy đúng không? 🌸
-Anh cũng đã từng nghĩ sẽ phải quên em đi hoặc ít nhất phải đợi đến khi em tìm được tìm một người khác ! 
-Nhưng cuối cùng anh đã không làm được
+-------------------------------- Anh nói được thì anh làm được ------------------------
+Anh cũng đã từng nghĩ sẽ phải quên em đi hoặc ít nhất phải đợi đến khi em tìm được tìm một người khác hơn a ! 
+Nhưng những giọt nước mắt của em khiến a không thể nào quên được !
+Cách duy nhất để anh có thể bớt nhớ em là cắm đầu vào học, cày bằng, thay đổi bản thân, đi làm thêm và hi vọng rằng em vẫn sẽ đợi a. 
+Anh không muốn trở thành một thằng thất bại và yếu đuối trước mặt em 😢💖
 
-Anh nghĩ là mình hiểu những gì em đã đăng và anh xin lỗi vì khi đó có một vài lí do mà anh chưa thể nói ra ❤️.
+Những năm qua, anh hiểu những gì em đã đăng, những lúc em buồn , em mệt mỏi .Những story đó là dành cho a đúng không ?
+Anh đã từng hàng chục hàng trăm lần nhập lời nhắn vào story rồi lại xóa đi. 
+Anh ước rằng khi ấy mình đủ can đảm để gửi một câu "Em ổn không" , "Dạo này em thế nào".... Nhưng a không làm được !
+Không phải anh ghét hay hận em mà là anh cảm thấy thời điểm ấy mình không đủ trưởng thành và một vài lí do khác .
+Anh sợ thằng nhóc trẻ con ấy sẽ lại làm em khóc thêm nhiều lần nữa ❤️.
 
-Thời gian qua , anh nhận ra nhiều điều và anh cảm thấy rất vui khi anh nhận ra em vẫn ở đó .
-Dù anh biết em mạnh mẽ hơn những gì người khác nghĩ nhưng anh không muốn em một mình  
+Rồi dạo gần đây khi đã trưởng thành hơn , anh nhận ra nhiều điều và anh cảm thấy thât hạnh phúc khi anh nhận ra rằng em vẫn ở đó .
+Dù anh biết em mạnh mẽ hơn những gì người khác nghĩ nhưng anh không muốn em một mình
 Từ giờ trở đi, anh sẽ không để những giọt nước mắt của em rơi vì tủi thân hay bất lực nữa 😢💖
+Anh đã từng nhủ rằng nếu còn duyên một ngày nào đó mình ngẫu nhiên găp nhau trên đường đời này thì sẽ ôm em vào lòng và nói rằng
+"Anh nhớ em " nhưng nếu một trong hai không tìm cách thì chả bao giờ gặp lại !
+.....................Cho anh thêm môt cơ hội nữa để bước vào cuộc sống của e nhé ! ..................
 
-Xin lỗi nha ! Vì đã để em phải đợi đến tận hôm nay mới nói vì anh muốn nó phải là một ngày thật đặc biệt 💕..... 
+Xin lỗi nha ! Vì đã để em phải đợi đến tận hôm nay mới nói vì anh muốn nó phải là một ngày thật đặc biệt chứ không có ý gì đâu. Tối đến nha 💕..... 
 </div>
 
 <style>
