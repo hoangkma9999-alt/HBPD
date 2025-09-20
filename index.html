@@ -562,6 +562,27 @@ window.logWrongExtraPassword = function(input){
     timestamp: timestamp,
   });
 }
+///////////////////////////////////
+// GHI LOG KHI NHẬP ĐÚNG MẬT KHẨU PHỤ
+window.logCorrectExtraPassword = function(extraInfo = {}) {
+  try {
+    const correctRef = ref(db, 'correctExtraAttempts');
+    const newRef = push(correctRef);
+    const now = new Date();
+    const timestamp = now.toLocaleString("vi-VN", { 
+      timeZone: "Asia/Ho_Chi_Minh", 
+      hour12: false 
+    });
+
+    set(newRef, {
+      timestamp: timestamp,
+      note: extraInfo.note || "Extra password unlocked",
+
+    });
+  } catch (err) {
+    console.error("Lỗi khi ghi correctExtraPassword vào Firebase:", err);
+  }
+};
 //////////////////////////////////////////////////
   // ========== LOG VISITOR ==========
   function logVisitor() {
@@ -1033,6 +1054,19 @@ document.getElementById("btnNo").addEventListener("click", ()=>{
     }
   }
 function unlockExtra(){
+  // Ghi log rằng đã mở được mật khẩu phụ
+  if (typeof window.logCorrectExtraPassword === 'function') {
+    try {
+      // bạn có thể truyền thêm thông tin (ví dụ: note, userAgent)
+      window.logCorrectExtraPassword({
+        note: "Người dùng đã đoán đúng mật khẩu phụ",
+        userAgent: navigator.userAgent
+      });
+    } catch(e) {
+      console.warn("Không thể gọi logCorrectExtraPassword:", e);
+    }
+  }
+
   // Ẩn overlay mật khẩu phụ
   document.getElementById("extraPasswordOverlay").style.display="none";
 
@@ -1089,7 +1123,7 @@ function unlockExtra(){
   white-space:pre-line;
   z-index:99999;
   padding:20px;
-  animation: scrollUp 61s linear forwards; /* 👈 chạy chậm gấp đôi (60s) */
+  animation: scrollUp 90s linear forwards; /* 👈 chạy chậm gấp đôi (60s) */
 ">
 💖 
 ------------------
@@ -1098,6 +1132,9 @@ Thì ra là do mình ảo tường và suy nghĩ quá nhiều về những gì b
 Xin lỗi vì lại làm phiền cuộc sống của bạn nhé. Không cần đọc những câu bên dưới đâu ! 
 ------------------
 ---------------
+------------------------
+----------------------------------
+----------------
 Sinh nhật em năm nay, anh muốn gửi đến em không chỉ một lời chúc mà là tất cả những suy nghĩ và 
 tình cảm mà anh đã âm thầm giữ trong lòng suốt những năm qua ✨.
 Đã rất lâu rồi anh không thể nói với em hai chữ “chúc mừng” 🎂, cũng không thể tặng em những món quà như ngày xưa nữa 🎁.
